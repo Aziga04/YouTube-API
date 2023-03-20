@@ -8,7 +8,7 @@ import com.example.youtubeapi.databinding.ItemPlaylistBinding
 import com.example.youtubeapi.remote.model.Item
 import com.example.youtubeapi.utils.loadImage
 
-class DetailAdapter :
+class DetailAdapter(val onClick: (Item) -> Unit) :
     RecyclerView.Adapter<DetailAdapter.DetailViewHolder>() {
 
     private val items = arrayListOf<Item>()
@@ -21,6 +21,10 @@ class DetailAdapter :
             binding.tvTitle.text = item.snippet.title
             binding.blackBar.isVisible = false
             binding.tvVideo.text = item.snippet.publishedAt
+
+            itemView.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 
@@ -45,5 +49,4 @@ class DetailAdapter :
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
         holder.bind(items[position])
     }
-
 }
